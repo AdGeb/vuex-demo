@@ -2,7 +2,7 @@
 import { computed, defineComponent, PropType } from "vue";
 import { CoffeeBag } from "@/components/Card/interfaces/card.interfaces";
 import { useStore } from "vuex";
-import { ItemInBag } from "@/store/modules/ShoppingBag/shoppingBag.interfaces";
+import { ItemInBag } from "@/store/shoppingBag.interfaces";
 import { get } from "lodash";
 import { useRouter } from "vue-router";
 
@@ -20,13 +20,13 @@ export default defineComponent({
 
     const numberOfAddedItemsToShoppingBag = computed(
       () =>
-        get(store.getters, "shoppingBag/getItemsInBag").filter(
+        store.getters.getItemsInBag.filter(
           (item: ItemInBag) => item.id === props.productConfig.id,
         ).length,
     );
 
     const onItemAdded = () => {
-      store.dispatch("shoppingBag/addItems", [
+      store.dispatch("addItems", [
         {
           id: props.productConfig.id,
           label: props.productConfig.label,
@@ -35,7 +35,7 @@ export default defineComponent({
     };
 
     const onItemRemoved = () => {
-      store.dispatch("shoppingBag/removeItem", props.productConfig.id);
+      store.dispatch("removeItem", props.productConfig.id);
     };
 
     const getImageUrl = (url: string) => {

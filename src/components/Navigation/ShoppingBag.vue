@@ -8,8 +8,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const numberOfItemsInBag = computed(() =>
-      get(store.getters, "shoppingBag/getNumberOfItemsInShoppingBag"),
+    const numberOfItemsInBag = computed(
+      () => store.getters.getNumberOfItemsInShoppingBag,
     );
     return {
       numberOfItemsInBag,
